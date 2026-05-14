@@ -2,11 +2,9 @@
 
 ## 1. Descrição do Projeto
 
-Este projeto tem como objetivo realizar uma análise exploratória e preditiva sobre o dataset **House Sales in King County, USA**, disponível no Kaggle.
+Este projeto realiza uma análise exploratória e preditiva sobre o dataset **House Sales in King County, USA** (Kaggle), focando em entender os fatores que mais influenciam o preço dos imóveis. O trabalho é guiado por hipóteses de negócio, com validação estatística e visual (gráficos, correlações) e explicações para cada resultado.
 
-O conjunto de dados contém informações sobre imóveis vendidos em King County, região localizada no estado de Washington, nos Estados Unidos. A proposta principal é entender quais fatores mais influenciam o preço dos imóveis e desenvolver uma análise baseada em hipóteses, visualizações gráficas e modelos de Machine Learning para previsão de preços.
-
-O projeto foi desenvolvido como um estudo de Ciência de Dados, passando pelas etapas de carregamento dos dados, exploração, limpeza, engenharia de atributos, análise de hipóteses, visualização e modelagem preditiva.
+O notebook principal é `Trabalho/codigo.ipynb` e o dataset está em `Trabalho/archive/kc_house_data.csv`.
 
 ---
 
@@ -85,19 +83,29 @@ Ou seja, o objetivo da modelagem é prever o preço dos imóveis.
 
 ## 5. Hipóteses do Projeto
 
-A análise foi guiada por 10 hipóteses principais.
+O projeto analisou as seguintes hipóteses, todas testadas com código Python, gráficos (seaborn/matplotlib) e estatísticas:
 
-### Hipótese 1: Imóveis com maior área habitável possuem preços mais altos
+- **H1:** Quanto maior a área construída (sqft_living), maior o preço do imóvel.
+- **H2:** Grade (qualidade da construção) tem forte influência no preço.
+- **H3:** Imóveis com vista para água (waterfront) são mais caros.
+- **H4:** Imóveis com mais banheiros geralmente também possuem mais quartos.
+- **H5:** Imóveis reformados tendem a ser mais antigos.
+- **H6:** Imóveis com waterfront tendem a ter melhor view.
+- **H7:** Localização influencia o padrão dos imóveis (grade), não apenas o preço.
+- **H8:** Imóveis com maior condition não necessariamente possuem maior grade.
+- **H9:** Imóveis com mais andares (floors) tendem a ter maior área construída.
+- **H10:** Imóveis com lotes maiores (sqft_lot) não necessariamente possuem maior área construída (sqft_living).
 
-A variável `sqft_living` representa a área interna da casa. A hipótese é que imóveis maiores tendem a possuir preços mais elevados.
+**Como as hipóteses foram testadas:**
+- Gráficos de dispersão, boxplots, heatmaps, agrupamentos e cálculo de correlação (Pearson).
+- Exemplo de código:
+```python
+sns.scatterplot(x='sqft_lot', y='sqft_living', data=df)
+correlacao = df['sqft_lot'].corr(df['sqft_living'])
+```
 
-**Como analisar:**
-
-- Gráfico de dispersão entre `sqft_living` e `price`;
-- Cálculo de correlação;
-- Comparação da importância da variável em modelos preditivos.
-
----
+**Conclusão das hipóteses:**
+Cada hipótese foi confirmada, parcialmente confirmada ou rejeitada, sempre com explicação baseada nos gráficos e valores de correlação.
 
 ### Hipótese 2: A localização influencia fortemente o preço dos imóveis
 
@@ -264,14 +272,15 @@ Foram gerados gráficos para entender melhor o comportamento dos dados, como:
 
 ### 6.4. Engenharia de atributos
 
-Foram criadas novas variáveis para melhorar a análise e a modelagem:
-
-- `house_age`;
-- `was_renovated`;
-- `has_basement`;
-- `living_lot_ratio`;
-- `bath_per_bedroom`;
-- `sale_month`.
+Foram criadas novas variáveis para enriquecer a análise, como:
+- `Years` (idade do imóvel)
+- `yrs_renovated` (anos desde a última reforma)
+- `m2_preco` (preço por área construída)
+- `bedrooms_per_bathroom`
+- `view_qtde` (nota de view original)
+- `sqft_total` (área total do imóvel)
+- `luxo` (flag para imóveis acima de 500k)
+- `condicao_baixa` (flag para condição <= 2)
 
 ### 6.5. Pré-processamento
 
@@ -284,12 +293,7 @@ Foram aplicadas técnicas como:
 
 ### 6.6. Modelagem preditiva
 
-Foram testados modelos de regressão para prever o preço dos imóveis, como:
-
-- Regressão Linear;
-- Árvore de Decisão;
-- Random Forest;
-- Gradient Boosting.
+O foco principal do notebook é a análise exploratória e validação das hipóteses. Modelos preditivos podem ser implementados como etapa futura.
 
 ### 6.7. Avaliação dos modelos
 
@@ -385,14 +389,11 @@ model = make_pipeline(
 
 ## 10. Resultados Esperados
 
-Ao final do projeto, espera-se:
-
-- Identificar os principais fatores que influenciam o preço dos imóveis;
-- Validar ou refutar as 10 hipóteses propostas;
-- Construir visualizações claras para apresentação;
-- Criar modelos de Machine Learning capazes de estimar preços de imóveis;
-- Comparar o desempenho de diferentes modelos;
-- Explicar os resultados de forma simples e objetiva.
+Ao final do projeto, foram:
+- Identificados os principais fatores que influenciam o preço dos imóveis;
+- Validadas ou refutadas 10 hipóteses com base em dados reais;
+- Construídas visualizações claras (gráficos, heatmaps, boxplots);
+- Explicados os resultados de forma simples e objetiva, com comentários após cada análise.
 
 ---
 
